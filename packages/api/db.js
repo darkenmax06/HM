@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const {NODE_ENV,PRODUCTION,DEVELOPMENT} = process.env
 
-const uri = NODE_ENV=== "development"
+const uri = NODE_ENV === "development"
 ? DEVELOPMENT
 : PRODUCTION
 
