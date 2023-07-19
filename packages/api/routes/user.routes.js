@@ -9,7 +9,7 @@ router.get("/", async (req, res, next) => {
 })
 
 router.post("/", async (req, res, next) => {
-    const { name, lastName, password } = req.body
+    const { name, lastName, password, type } = req.body
     if (!name || !lastName) return next({ name: 'MISSING_DATA' })
 
     let isCreated = null
@@ -29,7 +29,7 @@ router.post("/", async (req, res, next) => {
         createAt: date,
         password: passwordHash,
         userName,
-        type: "user"
+        type
     })
 
     try {

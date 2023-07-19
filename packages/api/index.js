@@ -7,6 +7,7 @@ const errorHandler = require("./errorHandler")
 /*--- imported Routes ---*/
 const usersRoutes = require("./routes/user.routes")
 const loginRoute = require("./routes/login.routes")
+const pacientesRoutes = require('./routes/pacientes.routes')
 
 /*-- config ---*/
 const app = express()
@@ -17,6 +18,7 @@ app.use(express.json())
 /*--- Routes ---*/
 app.use('/api/users', usersRoutes)
 app.use('/api/login', loginRoute)
+app.use("/api/pacientes", pacientesRoutes)
 app.use("/*", (req, res) => res.json({ message: "page not found" }))
 app.use(errorHandler)
 
