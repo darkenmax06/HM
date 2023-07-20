@@ -1,5 +1,6 @@
 POST http://localhost:3000/api/users
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Yjk0MzFlN2IzYmNlNGE2NjE1ODUyMiIsImlhdCI6MTY4OTg2Mjk2OX0.i6bFHF7rMR5PkxbHFFA9rvQ4FO5ciEMD6luX5XZMofc
 
 {
     "name": "Maria",

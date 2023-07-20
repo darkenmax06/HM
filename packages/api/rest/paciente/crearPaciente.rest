@@ -1,0 +1,12 @@
+POST http://localhost:3000/api/pacientes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Yjk0Mzc2MGU1ZjE1NmQ5ZjVhMjc1MiIsImlhdCI6MTY4OTg2MzE3M30.hln_lHQKjyD246NyR77WWe6XQiCiKNtYATRH8dRy_To
+
+{
+    "hcn": "juan",
+    "referencia":"asdasd sa das as",
+    "fechaDeIngreso": "11/6/2023",
+    "ubicacion": "ch-0000-0000",
+    "fechaDeRecibo": "12/6/2023",
+    "patologia": "el paciente sufrio una lesion de la rodilla"
+}

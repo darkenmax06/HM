@@ -1,21 +1,18 @@
 const router = require("express").Router()
 const Paciente = require('../models/Paciente')
+const jwt = require("jsonwebtoken")
+const User = require("../models/User")
+
 
 
 router.get("/", async (req, res, next) => {
-    const pacientes = await Paciente.find()
-    res.json(pacientes)
-})
-
-router.get("/:hcn", async (req, res, next) => {
-    const { hcn } = req.params
-    if (hcn === null || hcn === undefined) return next({ name: "MISSING_DATA" })
+    const { hcn } = req.query
+    if (!hcn) return next({ name: "MISSING_DATA" })
 
     let paciente = null
     try {
-        paciente = await Paciente.findOne({ hcn })
+        paciente = await Paciente.find({ hcn })
     } catch (err) { return next(err) }
-    if (!hcn) return next({ name: "INVALID_HCN" })
 
     res.json(paciente)
 })
@@ -26,18 +23,42 @@ router.post("/", async (req, res, next) => {
         fechaDeIngreso,
         ubicacion,
         fechaDeRecibo,
-        fechaDeProceso,
-        patologia,
-        usuario } = req.body
+        patologia } = req.body
+
+    /*--- TOKEN AND DISABLED VALIDATION ---*/
+    const { authorization } = req.headers
+    let token = null
+    if (authorization && authorization.toLowerCase().startsWith("bearer")) {
+        token = authorization.substring(7)
+    }
+
+    let decodeToken = {}
+    const secretKey = process.env.SECRET_KEY
+    try {
+        decodeToken = jwt.verify(token, secretKey)
+    } catch (err) {
+        return next(err)
+    }
+
+    if (!decodeToken || !decodeToken.id) return next({ name: "INVALID_TOKEN" })
+
+    let user = null
+    try {
+        user = await User.findById(decodeToken.id)
+    } catch (err) {
+        return next(err)
+    }
+    if (!user || user.disable) return next({ name: "INVALID_USER" })
+    /*--- END ---*/
 
     if (!hcn ||
         !referencia ||
         !fechaDeIngreso ||
         !ubicacion ||
         !fechaDeRecibo ||
-        !fechaDeProceso ||
-        !patologia ||
-        !usuario) return next({ name: 'MISSING_DATA' })
+        !patologia) return next({ name: 'MISSING_DATA' })
+
+    const fechaDeProceso = new Date()
 
     const paciente = new Paciente({
         hcn,
@@ -47,7 +68,7 @@ router.post("/", async (req, res, next) => {
         fechaDeRecibo,
         fechaDeProceso,
         patologia,
-        usuario
+        usuario: user._id
     })
 
     try {
@@ -61,6 +82,32 @@ router.post("/", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
     const { id } = req.params
     if (!id) return next({ name: "ID_LOST" })
+
+    /*--- TOKEN AND DISABLED VALIDATION ---*/
+    const { authorization } = req.headers
+    let token = null
+    if (authorization && authorization.toLowerCase().startsWith("bearer")) {
+        token = authorization.substring(7)
+    }
+
+    let decodeToken = {}
+    const secretKey = process.env.SECRET_KEY
+    try {
+        decodeToken = jwt.verify(token, secretKey)
+    } catch (err) {
+        return next(err)
+    }
+
+    if (!decodeToken || !decodeToken.id) return next({ name: "INVALID_TOKEN" })
+
+    let user = null
+    try {
+        user = await User.findById(decodeToken.id)
+    } catch (err) {
+        return next(err)
+    }
+    if (!user || user.disable) return next({ name: "INVALID_USER" })
+    /*--- END ---*/
 
     let paciente = null
     try {

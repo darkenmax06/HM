@@ -1,4 +1,4 @@
-const { Schema, model, SchemaType } = require('mongoose')
+const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
     hcn: String,
@@ -8,7 +8,10 @@ const schema = new Schema({
     fechaDeRecibo: Date,
     fechaDeProceso: Date,
     patologia: String,
-    usuario: String
+    usuario: {
+        type: Schema.Types.ObjectId,
+        ref: "Users"
+    }
 })
 
 schema.set("toJSON", {
@@ -18,5 +21,6 @@ schema.set("toJSON", {
         delete returnedObject.__v
     }
 })
+
 
 module.exports = model("Paciente", schema)

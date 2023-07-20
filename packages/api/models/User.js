@@ -6,7 +6,8 @@ const schema = new Schema({
     createAt: Date,
     password: String,
     userName: String,
-    type: String
+    type: String,
+    disable: Boolean
 })
 
 schema.set("toJSON", {

@@ -1,6 +1,7 @@
 function errorHandler(err, req, res, next) {
     const { name } = err
     console.log("error name", name)
+    console.log(err)
 
     const errors = {
         "MISSING_DATA": () => res.status(400).json({ error: "Faltan algunos datos para poder realizar esta accion" }),
@@ -9,9 +10,15 @@ function errorHandler(err, req, res, next) {
         "INVALID_ID": () => res.status(400).json({ error: "el recurso con la id requerida no se ha encontrado, esto puede deberse a que el usuario ya haya sido eliminado" }),
         "BAD_LOGIN": () => res.status(400).json({ error: "userName o contrasena incorrecta" }),
         "INVALID_HCN": () => res.status(400).json({ error: "no se han encontrado resultados del hcn proveido, porfavor verifique si esta escrito correctamente" }),
+        "INVALID_TOKEN": () => res.status(400).json({ error: "su token de acceso es invalido, intente iniciar sesion de nuevo", loginAgain: true }),
+        "INVALID_USER": () => res.status(400).json({ error: "su usuario no existe o ha sido desactivado", loginAgain: true }),
+        "INVALID_ROLE": () => res.status(400).json({ error: "no posees los permisos requreridos para realizar esta accion" }),
 
         /*--- Mongoose Errors ---*/
         "CastError": () => res.status(400).json({ error: "la id enviada no es correcta" }),
+
+        /*--- jsonWebToken Errors ---*/
+        "JsonWebTokenError": () => res.status(400).json({ error: "necesita un token de acceso valido para realizar esta accion" }),
         "DEFAULT_ERROR": () => res.status(500).json({ error: "ha ocurrido un error con el servidor" })
     }
 
