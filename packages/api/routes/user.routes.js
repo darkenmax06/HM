@@ -63,7 +63,7 @@ router.post("/", async (req, res, next) => {
         return next(err)
     }
     if (!verifyUser || verifyUser.disabled) return next({ name: "INVALID_USER" })
-    if (verifyUser.type === "user") return next({ name: "INVALID ROLE" })
+    // if (verifyUser.type === "user") return next({ name: "INVALID ROLE" })
     /*--- END ---*/
 
     let isCreated = null

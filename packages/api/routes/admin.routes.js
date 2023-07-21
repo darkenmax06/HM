@@ -21,7 +21,7 @@ router.post("/", async (req, res, next) => {
     const date = new Date()
     const SALT_ROUNDS = 10
     const passwordHash = await bcrypt.hash(password, SALT_ROUNDS)
-    const userName = name
+    const userName = name.split("")[0].toUpperCase() + lastName.split(" ")[0]
 
     const user = new User({
         name,

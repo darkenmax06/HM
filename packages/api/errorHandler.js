@@ -13,6 +13,7 @@ function errorHandler(err, req, res, next) {
         "INVALID_TOKEN": () => res.status(400).json({ error: "su token de acceso es invalido, intente iniciar sesion de nuevo", loginAgain: true }),
         "INVALID_USER": () => res.status(400).json({ error: "su usuario no existe o ha sido desactivado", loginAgain: true }),
         "INVALID_ROLE": () => res.status(400).json({ error: "no posees los permisos requreridos para realizar esta accion" }),
+        "INVALID_KEY": () => res.status(400).json({ error: "la key proporcionada es incorrecta" }),
 
         /*--- Mongoose Errors ---*/
         "CastError": () => res.status(400).json({ error: "la id enviada no es correcta" }),
