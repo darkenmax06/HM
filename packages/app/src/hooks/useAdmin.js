@@ -1,14 +1,14 @@
 import { useContext, useRef, useState } from "react"
-import { create } from "../services/adminServices"
-import { userContext } from "../context/userContext"
 import { useNavigate } from "react-router-dom"
+import { userContext } from "../context/userContext"
+import { create } from "../services/adminServices"
 
 function useAdmin() {
     const { saveUser } = useContext(userContext)
-    const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const timeOut = useRef()
+    const [error, setError] = useState(null)
 
     const errorHandler = (err) => {
         console.log(error)

@@ -9,6 +9,34 @@ router.get("/", async (req, res, next) => {
     const { hcn } = req.query
     if (!hcn) return next({ name: "MISSING_DATA" })
 
+    /*--- TOKEN AND DISABLED VALIDATION ---*/
+    const { authorization } = req.headers
+    let token = null
+    if (authorization && authorization.toLowerCase().startsWith("bearer")) {
+        token = authorization.substring(7)
+    }
+
+    let decodeToken = {}
+    const secretKey = process.env.SECRET_KEY
+    try {
+        decodeToken = jwt.verify(token, secretKey)
+    } catch (err) {
+        return next(err)
+    }
+
+    console.log(decodeToken)
+
+    if (!decodeToken || !decodeToken.id) return next({ name: "INVALID_TOKEN" })
+
+    let user = null
+    try {
+        user = await User.findById(decodeToken.id)
+    } catch (err) {
+        return next(err)
+    }
+    if (!user || user.disable) return next({ name: "INVALID_USER" })
+    /*--- END ---*/
+
     let paciente = null
     try {
         paciente = await Paciente.find({ hcn })
