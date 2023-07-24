@@ -8,6 +8,7 @@
     "npm": "7"
   },
   "scripts": {
+    "dev": "npm run dev --workspace=api | npm run dev --workspace=app",
     "back": "npm run dev --workspace=api"
   },
   "keywords": [],

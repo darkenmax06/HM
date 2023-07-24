@@ -14,8 +14,14 @@ function UserProvider({ children }) {
         // sessionStorage.setItem('user', JSON.stringify(value))
         setUser(value)
     }
+
+    const logout = () => {
+      setUser(null)
+  }
+  
+
     return (
-        <userContext.Provider value={{ saveUser, user }} >
+        <userContext.Provider value={{ saveUser, user, logout }} >
             {children}
         </userContext.Provider>
     )
