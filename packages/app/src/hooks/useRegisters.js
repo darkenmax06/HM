@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { create, search } from '../services/registersServices'
+import { create, remove, search } from '../services/registersServices'
 import useUser from './useUser'
 
 export default function useRegisters() {
@@ -37,16 +37,6 @@ export default function useRegisters() {
       })
   }
 
-  // REFERENCIA
-  // {
-  //   "hcn": "juan",
-  //   "referencia":"asdasd sa das as",
-  //   "fechaDeIngreso": "11/6/2023",
-  //   "ubicacion": "ch-0000-0000",
-  //   "fechaDeRecibo": "12/6/2023",
-  //   "patologia": "el paciente sufrio una lesion de la rodilla"
-  // }
-
   const createRegister = ({ data }) => {
     if (data.hcn == "") return errorHandler("debes proveer el hcn para poder realizar esta accion")
     else if (data.referencia == "") return errorHandler("debes proveer el referencia para poder realizar esta accion")
@@ -56,7 +46,7 @@ export default function useRegisters() {
     else if (data.fechaDeRecibo == "") return errorHandler("debes proveer el fechaDeRecibo para poder realizar esta accion")
     else if (data.patologia == "") return errorHandler("debes proveer el patologia para poder realizar esta accion")
 
-    const ubicationData = data.ubicacion.value.split("-")
+    const ubicationData = data.ubicacion.split("-")
     const formatedUbication = ubicationData.map(value => {
       if (value.length < 4) return value.padStart(4, "0")
       return value
@@ -78,10 +68,27 @@ export default function useRegisters() {
 
   }
 
+  const removeRegister = ({id})=>{
+    remove({id,token})
+    .then(res => {
+      alert("recurso eliminado de manera exitosa")
+      const filtedRegisters = registers.filter(reg => reg.id !== id)
+      setRegisters(filtedRegisters)
+    })
+    .catch(err=>{
+      if (err.loginAgain) {
+        logout()
+        navigate('/login')
+      }
+      errorHandler(err.error)
+    })
+  }
+
   return {
     searchRegisters,
     registers,
     error,
-    createRegister
+    createRegister,
+    removeRegister
   }
 }

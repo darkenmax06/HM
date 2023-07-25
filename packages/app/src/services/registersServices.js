@@ -29,7 +29,20 @@ function create({ data, token }) {
     .then(res => res)
 }
 
+function remove({ id, token }) {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${token}`
+    }
+  }
+  return fetch(`${URI}/${id}`, options)
+    .then(errorValidate)
+    .then(res => res)
+}
+
 export {
-  create, search
+  create, search, remove
 };
 

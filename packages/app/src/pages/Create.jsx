@@ -34,6 +34,8 @@ function Create() {
       patologia: patologia.value
     }
 
+    console.log(data)
+
     createRegister({ data })
   }
 
