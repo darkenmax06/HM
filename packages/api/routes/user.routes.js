@@ -29,16 +29,21 @@ router.get('/', async (req, res, next) => {
 	}
 	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
 	/*--- END ---*/
-	const users = await User.find()
-	res.json(users)
+
+	try {
+		const users = await User.find()
+		res.json(users)
+	} catch (err) {
+		return next(err)
+	}
 })
 
 
 router.post('/', async (req, res, next) => {
 	const { name, lastName, password } = req.body
 	if (!name ||
-        !lastName ||
-        !password) return next({ name: 'MISSING_DATA' })
+		!lastName ||
+		!password) return next({ name: 'MISSING_DATA' })
 
 	/*--- TOKEN VALIDATION ---*/
 	const authorization = req.headers?.authorization

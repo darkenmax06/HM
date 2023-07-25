@@ -2,6 +2,7 @@ import { useContext, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../context/userContext";
 import { loginUser } from "../services/loginService";
+import { getUser } from "../services/userServices";
 
 function useUser() {
   const { user, saveUser, logout } = useContext(userContext)
@@ -10,7 +11,6 @@ function useUser() {
   const timeOut = useRef()
 
   const errorHandler = (err) => {
-    console.log(error)
     if (timeOut.current) {
       clearInterval(timeOut.current)
     }
@@ -31,6 +31,10 @@ function useUser() {
       })
   }
 
+  const get = () => {
+    getUser()
+  }
+
   const token = useMemo(() => user?.token, [user])
 
   return {
@@ -39,7 +43,8 @@ function useUser() {
     logout,
     login,
     error,
-    token
+    token,
+    get
   }
 }
 

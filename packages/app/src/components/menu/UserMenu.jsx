@@ -5,7 +5,6 @@ function UserMenu() {
         <Menu>
             <MenuItem goTo="/search" >Buscar</MenuItem>
             <MenuItem goTo="/create" >Crear</MenuItem>
-            <button>cerrar sesion</button>
         </Menu>
     )
 }
