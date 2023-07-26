@@ -1,6 +1,6 @@
+import { ChevronRight } from "lucide-react"
 import { useEffect } from "react"
 import useField from "../hooks/useField"
-import {ChevronRight} from "lucide-react"
 import useUser from "../hooks/useUser"
 
 function Login  () {

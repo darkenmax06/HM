@@ -38,7 +38,6 @@ router.get('/', async (req, res, next) => {
 	}
 })
 
-
 router.post('/', async (req, res, next) => {
 	const { name, lastName, password } = req.body
 	if (!name ||
@@ -95,6 +94,107 @@ router.post('/', async (req, res, next) => {
 	try {
 		const savedUser = await user.save()
 		res.json(savedUser)
+	} catch (err) {
+		next(err)
+	}
+})
+
+router.put('/disable', async (req, res, next) => {
+	console.log(req.body)
+	const { id, disabled } = req.body
+	if (disabled === undefined || !id ) return next({ name: 'ID_LOST' })
+
+	/*--- TOKEN AND ADMIN VALIDATION ---*/
+	const authorization = req.headers?.authorization
+	let token = null
+	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
+		token = authorization.substring(7)
+	}
+
+	let decodeToken = {}
+	const secretKey = process.env.SECRET_KEY
+	try {
+		decodeToken = jwt.verify(token, secretKey)
+	} catch (err) {
+		return next(err)
+	}
+	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
+
+	let verifyUser = null
+	try {
+		verifyUser = await User.findById(decodeToken.id)
+	} catch (err) {
+		return next(err)
+	}
+	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
+	if (verifyUser.type === 'user') return next({ name: 'INVALID ROLE' })
+	/*--- END ---*/
+
+	let user = null
+	try {
+		user = await User.findById(id)
+	} catch (err) {
+		return next(err)
+	}
+	if (!user) return next({ name: 'INVALID_ID' })
+
+	user.disable = disabled
+
+	try {
+		await user.save()
+		const message = disabled ? 'desabilitado' : 'habilitado'
+		res.json({ message: 'usuario ' + message })
+	} catch (err) {
+		next(err)
+	}
+})
+
+
+router.put('/password', async (req, res, next) => {
+	const { id, password } = req.body
+	if (!id || !password) return next({ name: 'ID_LOST' })
+
+	/*--- TOKEN AND ADMIN VALIDATION ---*/
+	const authorization = req.headers?.authorization
+	let token = null
+	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
+		token = authorization.substring(7)
+	}
+
+	let decodeToken = {}
+	const secretKey = process.env.SECRET_KEY
+	try {
+		decodeToken = jwt.verify(token, secretKey)
+	} catch (err) {
+		return next(err)
+	}
+	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
+
+	let verifyUser = null
+	try {
+		verifyUser = await User.findById(decodeToken.id)
+	} catch (err) {
+		return next(err)
+	}
+	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
+	if (verifyUser.type === 'user') return next({ name: 'INVALID ROLE' })
+	/*--- END ---*/
+
+	let user = null
+	try {
+		user = await User.findById(id)
+	} catch (err) {
+		return next(err)
+	}
+	if (!user) return next({ name: 'INVALID_ID' })
+
+	const SALTROUNDS = 10
+	const passwordHash = await bcrypt.hash(password, SALTROUNDS)
+	user.password = passwordHash
+
+	try {
+		await user.save()
+		res.json({ message: 'Password cambiada ' })
 	} catch (err) {
 		next(err)
 	}

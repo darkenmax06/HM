@@ -1,38 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import AdminLayout from "../components/AdminLayout";
-import useUser from "../hooks/useUser";
-import { errorValidate } from "../utils/errorValidate";
-
-
+import useUsers from "../hooks/useUsers";
 
 function UserManagment() {
-  const { token } = useUser()
-  const [users, setUsers] = useState(null)
+  const {get, users,disable } = useUsers()
   document.title = "administrar usuarios..."
 
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': `Bearer ${token}`
-      }
-    }
+    get()
+  }, [])
 
-    fetch("http://localhost:3000/api/users", options)
-      .then(errorValidate)
-      .then(res => {
-        console.log(res)
-        setUsers(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [token])
+  const handleDisable = ({id,disabled})=>{
+    const data = {id,disabled}
+    console.log(data)
+    disable({data})
+  }
 
-  console.log("----- users -----")
-  console.log(users)
 
+  //componer esto en otro componente
+  // UserList
   return (
     <AdminLayout>
       <h1>users</h1>
@@ -46,7 +33,7 @@ function UserManagment() {
         <li>acciones</li>
       </ul>
       <div>
-        {users?.length > 0 && users.map(user => (
+        {users?.length > 0 && users.map(user => ( //userItem
           <ul key={user.id}>
             <li >{user.id}</li>
             <li >{user.name}</li>
@@ -54,8 +41,10 @@ function UserManagment() {
             <li >{user.userName}</li>
             <li >{user.createAt}</li>
             <li >{user.type}</li>
-            <button>eliminar</button>
-            <button>editar</button>
+            <button onClick={ ()=> handleDisable({id: user.id, disabled: !user.disable}) } > 
+              {user.disable ? "habilitar": "desabilitar"} 
+              </button>
+            <Link to={`managment/${user.id}`} >cambia password</Link>
           </ul>
         ))}
       </div>

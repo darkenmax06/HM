@@ -4,7 +4,7 @@ function UserMenu() {
     return (
         <Menu>
             <MenuItem goTo="/search" >Buscar</MenuItem>
-            <MenuItem goTo="/create" >Crear</MenuItem>
+            <MenuItem goTo="/create/registers" >Crear</MenuItem>
         </Menu>
     )
 }
