@@ -1,5 +1,4 @@
-// => habilitar y desabilitar usuarios ✔ 
-// => editar la password de un usuario
+// ponerle el proptype al contexto
 // refactorizar
 
 const list = [

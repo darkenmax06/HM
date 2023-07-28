@@ -1,0 +1,16 @@
+.action{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s);
+  padding: var(--m);
+  background-color: var(--colorOscuro);
+  color: var(--blanco);
+  border: none;
+  border-radius: var(--s);
+  transition: gap .3s;
+}
+
+.action:hover{
+  gap: var(--m);
+}

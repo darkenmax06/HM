@@ -1,0 +1,10 @@
+
+
+.info__alert{
+  margin-top: var(--m);
+  padding: var(--s);
+  border-left: 5px solid var(--colorClaro);
+  background-color: var(--colorTransparente);
+  font-family: "medium";
+  font-size: 16px;
+}

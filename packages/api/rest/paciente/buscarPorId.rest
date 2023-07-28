@@ -1,0 +1,2 @@
+GET http://localhost:3000/api/pacientes/64bf2607238fd0338c6ab115
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YmU4M2U2ZTU3Y2NiYzYwZTUwMjEyMCIsImlhdCI6MTY5MDQyMzk0MX0.hpexfOiKkxnede-p6V5kHQWJxzqILM1_2MwhdP-POqw

@@ -1,0 +1,41 @@
+.menu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--m);
+  background-color: var(--blanco);
+
+  position: sticky;
+  top: 0;
+}
+
+.menu nav{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
+}
+
+.menu nav ul{
+  display: flex;
+  gap: var(--l);
+  list-style: none;
+}
+
+.menu__item a {
+  text-decoration: none;
+  display: flex;
+  gap: var(--s);
+  color: var(--negro);
+  transition: color .2s ,
+  transform .2s;
+  text-transform: uppercase;
+}
+
+
+.menu__item a:hover{
+  color: var(--colorOscuro);
+  transform: scale(1.1);
+}

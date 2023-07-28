@@ -10,7 +10,6 @@ function UserProvider({ children }) {
     })
 
     const saveUser = (value) => {
-        console.log(value)
         // sessionStorage.setItem('user', JSON.stringify(value))
         setUser(value)
     }
@@ -27,8 +26,7 @@ function UserProvider({ children }) {
     )
 }
 
-
 export default UserProvider
 export {
-    userContext
-}
+  userContext
+};

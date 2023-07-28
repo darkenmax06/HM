@@ -1,0 +1,30 @@
+.admin__create{
+  display: grid;
+  place-content: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.admin__create form{
+  padding: var(--m);
+  box-shadow: 20px 20px 0px #0000004a;
+  background-color: var(--gris);
+  border-radius: var(--s);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--l);
+}
+
+.admin__create form .inputs{
+  display: grid;
+  grid-template-columns: repeat(2, 250px);
+  gap: var(--m);
+}
+
+.admin__create form .inputs input{
+  padding: var(--s);
+  border: none;
+  border-left: 5px solid var(--colorOscuro);
+  outline: none;
+}

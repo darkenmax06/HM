@@ -1,0 +1,35 @@
+.registers__list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 350px);
+  width: 100%;
+  gap: var(--s);
+  padding: var(--xl) 0px;
+  width: 100%;
+  justify-content: center;
+}
+
+/*
+.registers__list .schema{
+  display: grid;
+  grid-template-columns: 250px 100px 150px 150px 100px 150px 150px 100px 100px 200px;
+  list-style: none;
+  background-color: var(--gris);
+}
+
+.registers__list .schema:last-child{
+  grid-column: span 2;
+}*/
+
+.register__item{
+  list-style: none;
+  background-color: var(--gris);
+  padding: var(--s);
+  border-radius: var(--s);
+}
+
+.register__item .actions {
+  margin-top: var(--s);
+  display: flex;
+  flex-direction: row;
+  gap: var(--s);
+}

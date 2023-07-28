@@ -1,0 +1,10 @@
+.search__btn{
+  padding: var(--s);
+  border: none;
+  background-color: var(--colorClaro);
+  border-radius: var(--s);
+  color: var(--blanco);
+  display: flex;
+  align-items: center;
+  gap: var(--s);
+}

@@ -1,0 +1,10 @@
+.update__btn{
+  background-color: var(--naranja);
+  padding: var(--s);
+  border: none;
+  border-radius: var(--s);
+  color: var(--blanco);
+  display: flex;
+  gap: var(--s);
+  text-decoration: none;
+}

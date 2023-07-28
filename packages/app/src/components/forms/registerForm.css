@@ -1,0 +1,41 @@
+.register__form{
+  padding: var(--m);
+  box-shadow: 20px 20px 0px #0000004a;
+  background-color: var(--gris);
+  border-radius: var(--s);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s);
+}
+
+.register__form .inputs{
+  display: grid;
+  grid-template-columns: repeat(2, 250px);
+  gap: var(--m);
+}
+
+.register__form .inputs div:nth-child(5),
+.register__form .inputs div:last-child{
+  grid-column: 1/3;
+}
+
+.register__form .inputs div{
+  display: flex;
+  flex-direction: column;
+  gap: var(--s);
+}
+
+
+.register__form .inputs div input,
+.register__form .inputs div textarea{
+  padding: var(--s);
+  border: none;
+  border-left: 5px solid var(--colorOscuro);
+  outline: none;
+}
+
+.register__form .inputs div textarea{
+  resize: none;
+  height: 200px;
+}

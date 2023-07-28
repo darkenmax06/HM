@@ -11,8 +11,8 @@ router.post('/', async (req, res, next) => {
 	try {
 		user = await User.findOne({ userName })
 	} catch (err) { return next(err) }
-
-	if (user.disable) return next({name: 'INVALID_USER'})
+	if (!user) return next({name: 'BAD_LOGIN'})
+	else if (user.disable) return next({name: 'INVALID_USER'})
 
 	const isCorrectPassword = user !== null
 		? await bcrypt.compare(password, user.password)

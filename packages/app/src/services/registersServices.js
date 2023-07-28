@@ -33,7 +33,32 @@ function remove({ id, token }) {
   const options = {
     method: 'DELETE',
     headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  }
+  return fetch(`${URI}/${id}`, options)
+    .then(errorValidate)
+    .then(res => res)
+}
+
+function update({ data, id, token }) {
+  const options = {
+    method: 'PUT',
+    headers: {
       'Content-Type': 'application/json',
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(data)
+  }
+  return fetch(`${URI}/${id}`, options)
+    .then(errorValidate)
+    .then(res => res)
+}
+
+function getById({id, token}){
+  const options = {
+    method: 'GET',
+    headers: {
       "Authorization": `Bearer ${token}`
     }
   }
@@ -43,6 +68,6 @@ function remove({ id, token }) {
 }
 
 export {
-  create, search, remove
+  create, getById, remove, search, update
 };
 

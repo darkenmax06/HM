@@ -50,7 +50,6 @@ export default function useUsers() {
       setMessage(res.message)
       setUsers(userChanged)
     }).catch(err => {
-      console.log(err)
       if (err.loginAgain){
         logout()
         navigate("/login")
@@ -84,11 +83,11 @@ export default function useUsers() {
     else if (data.confirmPassword == "") return errorHandler("debes confirmar la password para realizar esta accion")
     else if (data.confirmPassword !== data.password) return errorHandler("las password no coinciden")
 
-    const {...restOfData, confirmPassword} = data
+    const {confirmPassword, ...restOfData} = data
 
     changePassword({data: restOfData, token})
     .then(res =>{
-      console.log(res)
+      setMessage(res.message)
     })
     .catch(err => {
       if (err.loginAgain){
@@ -98,6 +97,10 @@ export default function useUsers() {
       errorHandler(err.error)
     })
   }
+
+  const clearMessage = ()=>{
+    setMessage(null)
+  }
   
   return {
     get,
@@ -106,6 +109,7 @@ export default function useUsers() {
     error,
     message,
     disable,
-    replacePassword
+    replacePassword,
+    clearMessage
   }
 }

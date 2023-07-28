@@ -1,11 +1,15 @@
 import UserMenu from "./menu/UserMenu";
-
+import "./userLayout.css";
 
 function UserLayout({ children }) {
     return (
         <section>
             <UserMenu />
-            {children}
+            <div className="max" >
+              <div className="container">
+                {children}
+              </div>
+            </div>
         </section>
     )
 }

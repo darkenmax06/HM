@@ -1,0 +1,9 @@
+.logout__button{
+  background-color: var(--rojo);
+  padding: var(--s);
+  border: none;
+  border-radius: var(--s);
+  color: var(--blanco);
+  display: flex;
+  gap: var(--s);
+}

@@ -26,7 +26,7 @@ function useUser() {
         saveUser(res)
         navigate("/search")
       }).catch(err => {
-        setError(err)
+        errorHandler(err)
       })
   }
   

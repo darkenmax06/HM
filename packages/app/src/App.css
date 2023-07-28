@@ -1,0 +1,13 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --colorClaro: #34A9E4,
+  --colorOscuro: #005476,
+  --blanco: #fff,
+  --gris: #fff,
+  --negro: #000
+}

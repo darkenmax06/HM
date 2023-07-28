@@ -1,6 +1,0 @@
-
-
-function AdminHome (){
-  return (
-  )
-}

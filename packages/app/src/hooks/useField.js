@@ -1,17 +1,21 @@
 import { useState } from "react"
 
 
-function useField(placeholder, type = "text") {
-    const [value, setValue] = useState("")
+function useField({placeholder, initialValue = "",type = "text"}) {
+    const [value, setValue] = useState(initialValue)
 
     const onChange = ({ target: { value } }) => setValue(value)
 
-    return {
-        value,
-        onChange,
-        type,
-        placeholder
-    }
+    const reset = ()=> setValue("")
+
+    const object = {
+      value,
+      onChange,
+      type,
+      placeholder
+  }
+
+    return [object,reset]
 }
 
 

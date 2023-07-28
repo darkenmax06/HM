@@ -1,16 +1,17 @@
-import { ChevronRight } from "lucide-react"
 import { useEffect } from "react"
+import InputError from "../components/InputError"
+import MakeAction from "../components/buttons/MakeAction"
 import useField from "../hooks/useField"
 import useUser from "../hooks/useUser"
+import "./Login.css"
 
 function Login  () {
   const {logout,error,login} = useUser()
-  const userName = useField("ingrese su userName")
-  const password = useField("ingrese su password", "password")
+  const [userName] = useField({placeholder: "ingrese su userName", initialValue: "Rgonzalez"})
+  const [password] = useField({placeholder:"ingrese su password", type:"password", initialValue: "ramsesgonzalez"})
 
   useEffect(()=>{
     logout()
-    document.title = 'Iniciar Sesion'
   },[logout])
 
   const handleSubmit = event =>{
@@ -32,9 +33,9 @@ function Login  () {
         <div className="inputs">
           <input {...userName} />
           <input {...password} />
+         {error && <InputError error={error}/>}
         </div>
-      {error && <span>{error}</span>}
-        <button>iniciar sesion <ChevronRight/> </button>
+      <MakeAction title="Iniciar Sesion"/>
       </form>
     </section>
   )
