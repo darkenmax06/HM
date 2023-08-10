@@ -1,6 +1,8 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { create, getById, remove, search, update } from '../services/registersServices'
+import { formateUbication } from '../utils/formatCH'
+import useError from './useError'
 import useUser from './useUser'
 
 //refactorizar lo de el formato de los registers
@@ -11,17 +13,7 @@ export default function useRegisters() {
   const [register, setRegister] = useState(null)
   const [message,setMessage] = useState(null)
   const navigate = useNavigate()
-  const [error, setError] = useState(null)
-  const timeOut = useRef()
-
-  const errorHandler = (err) => {
-    console.log(error)
-    if (timeOut.current) {
-      clearInterval(timeOut.current)
-    }
-    setError(err)
-    timeOut.current = setTimeout(() => setError(null), 5000)
-  }
+  const {error, errorHandler} = useError()
 
   const searchRegisters = ({ query }) => {
     if (!query) return errorHandler("debes proveer el hcn del paciente para poder hacer la busqueda")
@@ -39,22 +31,15 @@ export default function useRegisters() {
   }
 
   const createRegister = ({ data }) => {
-    if (data.hcn == "") return errorHandler("debes proveer el hcn para poder realizar esta accion")
-    else if (data.referencia == "") return errorHandler("debes proveer el referencia para poder realizar esta accion")
-    else if (data.fechaDeIngreso == "") return errorHandler("debes proveer el fechaDeIngreso para poder realizar esta accion")
-    else if (data.ubicacion == "") return errorHandler("debes proveer el ubicacion para poder realizar esta accion")
-    else if (!data.ubicacion.includes("-")) return errorHandler("debes pones un separador '-' entre cada conjunto de digitos, ej '123-123'")
-    else if (data.fechaDeRecibo == "") return errorHandler("debes proveer el fechaDeRecibo para poder realizar esta accion")
-    else if (data.patologia == "") return errorHandler("debes proveer el patologia para poder realizar esta accion")
+    if (data.hcn == "") return errorHandler({error: "debes proveer el hcn para poder realizar esta accion"})
+    else if (data.referencia == "") return errorHandler({error: "debes proveer el referencia para poder realizar esta accion"})
+    else if (data.fechaDeIngreso == "") return errorHandler({error: "debes proveer el fechaDeIngreso para poder realizar esta accion"})
+    else if (data.ubicacion == "") return errorHandler({error: "debes proveer el ubicacion para poder realizar esta accion"})
+    else if (!data.ubicacion.includes("-")) return errorHandler({error: "debes pones un separador '-' entre cada conjunto de digitos, ej '123-123'"})
+    else if (data.fechaDeRecibo == "") return errorHandler({error: "debes proveer el fechaDeRecibo para poder realizar esta accion"})
+    else if (data.patologia == "") return errorHandler({error: "debes proveer el patologia para poder realizar esta accion"})
 
-    const ubicationData = data.ubicacion.split("-")
-    const formatedUbication = ubicationData.map(value => {
-      if (value.length < 4) return value.padStart(4, "0")
-      return value
-    })
-    const ubicationResult = `CH-${formatedUbication[0]}-${formatedUbication[1]}`
-
-    data.ubicacion = ubicationResult
+    data.ubicacion = formateUbication(data.ubicacion)
 
     create({ data, token })
       .then(res => {
@@ -64,7 +49,7 @@ export default function useRegisters() {
           logout()
           navigate('/login')
         }
-        errorHandler(err.error)
+        errorHandler({error: err.error})
       })
 
   }
@@ -86,33 +71,25 @@ export default function useRegisters() {
   }
 
   const updateRegister = ({ data , id}) => {
-    if (data.hcn == "") return errorHandler("debes proveer el hcn para poder realizar esta accion")
-    else if (data.referencia == "") return errorHandler("debes proveer el referencia para poder realizar esta accion")
-    else if (data.fechaDeIngreso == "") return errorHandler("debes proveer el fechaDeIngreso para poder realizar esta accion")
-    else if (data.ubicacion == "") return errorHandler("debes proveer el ubicacion para poder realizar esta accion")
-    else if (!data.ubicacion.includes("-")) return errorHandler("debes pones un separador '-' entre cada conjunto de digitos, ej '123-123'")
-    else if (data.fechaDeRecibo == "") return errorHandler("debes proveer el fechaDeRecibo para poder realizar esta accion")
-    else if (data.patologia == "") return errorHandler("debes proveer el patologia para poder realizar esta accion")
+    if (data.hcn == "") return errorHandler({error: "debes proveer el hcn para poder realizar esta accion"})
+    else if (data.referencia == "") return errorHandler({error: "debes proveer el referencia para poder realizar esta accion"})
+    else if (data.fechaDeIngreso == "") return errorHandler({error: "debes proveer el fechaDeIngreso para poder realizar esta accion"})
+    else if (data.ubicacion == "") return errorHandler({error: "debes proveer el ubicacion para poder realizar esta accion"})
+    else if (!data.ubicacion.includes("-")) return errorHandler({error: "debes pones un separador '-' entre cada conjunto de digitos, ej '123-123'"})
+    else if (data.fechaDeRecibo == "") return errorHandler({error: "debes proveer el fechaDeRecibo para poder realizar esta accion"})
+    else if (data.patologia == "") return errorHandler({error: "debes proveer el patologia para poder realizar esta accion"})
 
-    const ubicationData = data.ubicacion.split("-")
-    const formatedUbication = ubicationData.map(value => {
-      if (value.length < 4) return value.padStart(4, "0")
-      return value
-    })
-
-    const ubicationResult = `CH-${formatedUbication[0]}-${formatedUbication[1]}`
-
-    data.ubicacion = ubicationResult
+    data.ubicacion = formateUbication(data.ubicacion)
 
     update({ data, id, token })
       .then(res => {
-        console.log(res)
+        setMessage(res.message)
       }).catch(err => {
         if (err.loginAgain) {
           logout()
           navigate('/login')
         }
-        errorHandler(err.error)
+        errorHandler({error: err.error})
       })
       //hacer lo de los messages,en la api y la app
 
@@ -127,7 +104,7 @@ export default function useRegisters() {
         logout()
         navigate('/login')
       }
-      errorHandler(err.error)
+      errorHandler({error: err.error})
     })
   }
 

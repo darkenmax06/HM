@@ -1,32 +1,30 @@
-import { useContext, useMemo, useRef, useState } from "react";
+import { useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../context/userContext";
 import { loginUser } from "../services/loginService";
+import useError from "./useError";
+
+
+// este es el UseUser
+// este se encarga de gestionar la sesion del usuario
+// osea, el login logout etc...
 
 function useUser() {
   const { user, saveUser, logout } = useContext(userContext)
-  const [error, setError] = useState(null)
+  const {error, errorHandler} = useError()
   const navigate = useNavigate()
-  const timeOut = useRef()
 
-  const errorHandler = (err) => {
-    if (timeOut.current) {
-      clearInterval(timeOut.current)
-    }
-    setError(err)
-    timeOut.current = setTimeout(() => setError(null), 5000)
-  }
 
   const login = ({ userInfo }) => {
-    if (userInfo.userName == "") return errorHandler("debes proveer tu userName para poder loguearte")
-    if (userInfo.password == "") return errorHandler("debes proveer tu password para poder loguearte")
+    if (userInfo.userName == "") return errorHandler({error: "debes proveer tu userName para poder loguearte"})
+    if (userInfo.password == "") return errorHandler({error: "debes proveer tu password para poder loguearte"})
 
     loginUser({ userInfo })
       .then(res => {
         saveUser(res)
         navigate("/search")
       }).catch(err => {
-        errorHandler(err)
+        errorHandler({error: err})
       })
   }
   

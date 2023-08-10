@@ -6,7 +6,7 @@ import "./userManagment.css";
 import UserList, { UserItem } from "../../components/lists/UserList";
 
 function UserManagment() {
-  const {get, users,disable } = useUsers()
+  const {get, users, disable } = useUsers()
 
   useEffect(() => {
     get()
@@ -23,7 +23,7 @@ function UserManagment() {
   // UserList
   return (
     <AdminLayout>
-    <h1>users</h1>
+    <h1>Usuarios</h1>
       <UserList>
       {users?.length > 0 && users.map(user => <UserItem key={user.id} handleDisable={handleDisable} {...user} />)}
       </UserList>

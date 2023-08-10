@@ -208,8 +208,8 @@ router.put('/:id', async(req,res,next)=>{
 	Object.assign(paciente,req.body)
 
 	try{
-		const newPaciente = await paciente.save()
-		res.json(newPaciente)
+		await paciente.save()
+		res.json({message: 'registro actualizado de manera exitosa'})
 	}catch(err){
 		next(err)
 	}

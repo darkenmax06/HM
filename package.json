@@ -8,6 +8,7 @@
     "npm": "7"
   },
   "scripts": {
+    "start": "npm run build --workspace=app && npm run dev --workspace=api",
     "list": "node thingsForMake.js",
     "dev": "npm run dev --workspace=api | npm run dev --workspace=app",
     "back": "npm run dev --workspace=api"

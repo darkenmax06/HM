@@ -11,7 +11,7 @@ function UpdateButton  ({goTo, title = "actualizar"}) {
 
 UpdateButton.propTypes = {
   goTo: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 }
 
 export default UpdateButton

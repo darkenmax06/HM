@@ -5,7 +5,7 @@ function errorHandler(err, req, res, next) {
 
 	const errors = {
 		'MISSING_DATA': () => res.status(400).json({ error: 'Faltan algunos datos para poder realizar esta accion' }),
-		'USER_ALREADY_EXISTS': () => res.status(400).json({ error: 'Este usuario ya existe' }),
+		'USER_ALREADY_EXISTS': () => res.status(400).json({ error: 'Ya existe un usuario con este userName' }),
 		'ID_LOST': () => res.status(400).json({ error: 'la id es necesaria para realizar esta accion' }),
 		'INVALID_ID': () => res.status(400).json({ error: 'el recurso con la id requerida no se ha encontrado, esto puede deberse a que este ya haya sido eliminado' }),
 		'BAD_LOGIN': () => res.status(400).json({ error: 'userName o contrasena incorrecta' }),

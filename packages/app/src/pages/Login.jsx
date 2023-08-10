@@ -7,8 +7,8 @@ import "./Login.css"
 
 function Login  () {
   const {logout,error,login} = useUser()
-  const [userName] = useField({placeholder: "ingrese su userName", initialValue: "Rgonzalez"})
-  const [password] = useField({placeholder:"ingrese su password", type:"password", initialValue: "ramsesgonzalez"})
+  const [userName] = useField({placeholder: "ingrese su userName"})
+  const [password] = useField({placeholder:"ingrese su password", type:"password"})
 
   useEffect(()=>{
     logout()

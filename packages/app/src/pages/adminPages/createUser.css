@@ -1,5 +1,5 @@
 .create__user__form{
-  padding: var(--m);
+  padding: var(--m) var(--l);
   box-shadow: 20px 20px 0px #0000004a;
   background-color: var(--gris);
   border-radius: var(--s);

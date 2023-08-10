@@ -4,11 +4,12 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 router.post('/', async (req, res, next) => {
-	const { name, lastName, password, key } = req.body
+	const { name, lastName, password, key, userName } = req.body
 
 	if (!name ||
         !lastName ||
         !password ||
+        !userName ||
         !key) return next({ name: 'MISSING_DATA' })
 	if (key !== process.env.SECRET_KEY) return next({ name: 'INVALID_KEY' })
 
@@ -21,7 +22,6 @@ router.post('/', async (req, res, next) => {
 	const date = new Date()
 	const SALT_ROUNDS = 10
 	const passwordHash = await bcrypt.hash(password, SALT_ROUNDS)
-	const userName = name.split('')[0].toUpperCase() + lastName.split(' ')[0]
 
 	const user = new User({
 		name,

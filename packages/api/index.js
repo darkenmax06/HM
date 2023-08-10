@@ -3,6 +3,7 @@ require('./db')
 const express = require('express')
 const cors = require('cors')
 const errorHandler = require('./errorHandler')
+const path = require('path')
 
 /*--- imported Routes ---*/
 const usersRoutes = require('./routes/user.routes')
@@ -18,13 +19,18 @@ app.use(cors())
 app.use(express.json())
 
 /*--- Routes ---*/
+app.use(express.static(path.join(__dirname, '../app/dist')))
+
 app.use('/api/users', usersRoutes)
 app.use('/api/login', loginRoute)
 app.use('/api/pacientes', pacientesRoutes)
 app.use('/api/admin', adminRoutes)
 app.delete('/api/deleteAll', deleteAll)
-app.use('/*', (req, res) => res.json({ message: 'recurso no encontrado' }))
 app.use(errorHandler)
+
+app.use('*', (_,res)=>{
+	res.sendFile(path.join(__dirname, '../app/dist', 'index.html'))
+})
 
 /*--- server ---*/
 

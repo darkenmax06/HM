@@ -17,7 +17,6 @@ function UserItem  ({
   const fFechaDeCreacion =formatDate(createAt)
   return (          
   <ul className="user__item" >
-    <li >{id}</li>
     <li >{name}</li>
     <li >{lastName}</li>
     <li >{userName}</li>
@@ -37,7 +36,6 @@ function UserList  ({children}) {
   return (
     <div className="user__list" >
       <ul className="schema" >
-        <li>id</li>
         <li>nombre</li>
         <li>apellido</li>
         <li>UserName</li>

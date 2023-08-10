@@ -39,9 +39,10 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-	const { name, lastName, password } = req.body
+	const { name, lastName, password, userName } = req.body
 	if (!name ||
 		!lastName ||
+    !userName ||
 		!password) return next({ name: 'MISSING_DATA' })
 
 	/*--- TOKEN VALIDATION ---*/
@@ -72,14 +73,13 @@ router.post('/', async (req, res, next) => {
 
 	let isCreated = null
 	try {
-		isCreated = await User.findOne({ name, lastName })
+		isCreated = await User.findOne({ userName })
 	} catch (err) { return next(err) }
 	if (isCreated) return next({ name: 'USER_ALREADY_EXISTS' })
 
 	const date = new Date()
 	const SALT_ROUNDS = 10
 	const passwordHash = await bcrypt.hash(password, SALT_ROUNDS)
-	const userName = name.split('')[0].toUpperCase() + lastName.split(' ')[0]
 
 	const user = new User({
 		name,

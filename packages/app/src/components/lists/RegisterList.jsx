@@ -32,7 +32,6 @@ export  function RegisterItem({
   
   return (
     <ul className="register__item" >
-      <li><b>#de orden:</b> {id} </li>
       <li><b>hcn:</b> {hcn} </li>
       <li><b>referencia:</b> {referencia} </li>
       <li><b>fecha de ingreso:</b> {fFechaDeIngreso} </li>
@@ -40,7 +39,7 @@ export  function RegisterItem({
       <li><b>fecha de recibo:</b> {fFechaDeRecibo} </li>
       <li><b>fecha del proceso:</b> {fFechaDeProceso} </li>
       <li><b>usuario:</b> {usuario} </li>
-      <li><b>patologia:</b> {patologia} </li>
+      <li><b className="patologia" >patologia:</b> {patologia} </li>
       <div className="actions">
         <DeleteButton handleClick={()=> handleDelete({id})} />
         <UpdateButton goTo={`/update/registers/${id}`} />
