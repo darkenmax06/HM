@@ -1,0 +1,34 @@
+### modificando la contraseña de un usuario
+PUT http://localhost:3000/api/admin/users/password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Yjk0MzFlN2IzYmNlNGE2NjE1ODUyMiIsImlhdCI6MTY4OTg2Nzg2Nn0.6KiZVw_8HKO8yCezygfJLjAsjJKYngJoEBXnZZuvZk0
+
+
+{
+    "id": "64b943760e5f156d9f5a2752",
+    "password": "soporte"
+}
+
+
+
+### Crear Un usuario administrador
+POST http://localhost:3000/api/admin
+Content-Type: application/json
+
+{
+    "name": "admin",
+    "lastName": "Soporte",
+    "password": "soporte",
+    "key": "soporte"
+}
+
+
+
+### desabilitar un usuario
+PUT http://localhost:3000/api/admin/users/disable
+Content-Type: application/json
+
+{
+    "id": "",
+    "disabled": false
+}

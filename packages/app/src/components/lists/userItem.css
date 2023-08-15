@@ -1,0 +1,13 @@
+.user__item{
+  list-style: none;
+  display: grid;
+  padding: var(--s);
+  grid-template-columns: 100px 150px 150px 150px 50px 150px 220px ;
+  width: 1050px;
+  align-items: center;
+  gap: var(--s);
+}
+
+.user__item:nth-child(2n - 1){
+  background-color: var(--gris);
+}

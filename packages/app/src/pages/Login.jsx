@@ -6,7 +6,7 @@ import useUser from "../hooks/useUser"
 import "./Login.css"
 
 function Login  () {
-  const {logout,error,login} = useUser()
+  const {logout,error,loading ,login} = useUser()
   const [userName] = useField({placeholder: "ingrese su userName"})
   const [password] = useField({placeholder:"ingrese su password", type:"password"})
 
@@ -35,7 +35,7 @@ function Login  () {
           <input {...password} />
          {error && <InputError error={error}/>}
         </div>
-      <MakeAction title="Iniciar Sesion"/>
+      <MakeAction isLoading={loading} title="Iniciar Sesion"/>
       </form>
     </section>
   )

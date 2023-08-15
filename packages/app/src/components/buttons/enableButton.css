@@ -1,0 +1,15 @@
+
+
+#button__enable{
+
+  padding: var(--s);
+  background-color: var(--colorClaro);
+  display: flex;
+  align-items: center;
+  gap: var(--s);
+  border: none;
+  border-radius: var(--s);
+  color: var(--blanco);
+  justify-content: space-between;
+  
+}

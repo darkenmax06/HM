@@ -14,7 +14,7 @@ function UpdateRegister  () {
 
   return (
     <UserLayout>
-      {register && <RegisterForm title="actualizar" {...register} />}
+      {register && <RegisterForm title="Actualizar Registro" {...register} />}
     </UserLayout>
   )
 }

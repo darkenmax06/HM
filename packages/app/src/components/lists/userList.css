@@ -1,43 +1,25 @@
 .user__list{
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
+  align-content: center;
   width: 100%;
-  overflow: auto;
-  gap: var(--s);
+  max-width: 1050px;
 }
 
 .user__list .schema{
   display: grid;
   grid-template-columns: 100px 150px 150px 150px 50px 150px 250px ;
   list-style: none;
-  background: var(--gris);
-  background-size: 400%;
-  padding: var(--s);
-  width: 100%;
-  gap: var(--s);
-}
-
-
-.user__item{
-  list-style: none;
-  display: grid;
-  padding: var(--s);
-  grid-template-columns: 100px 150px 150px 150px 50px 150px 250px ;
-  align-items: center;
-  gap: var(--s);
-}
-
-.user__item .disable{
-  padding: var(--s);
-  background-color: var(--colorClaro);
-  border: none;
-  border-radius: var(--s);
-}
-
-.user__item .enable{
-  padding: var(--s);
-  background-color: var(--rojo);
-  border: none;
-  border-radius: var(--s);
+  background: var(--colorOscuro);
   color: var(--blanco);
+  padding: var(--s);
+  width:  1050px;
+  gap: var(--s);
+}
+
+.user__list .schema li{
+
+  font-family: "Bold";
+  text-transform: uppercase;
 }

@@ -34,7 +34,11 @@ router.post('/', async (req, res, next) => {
 
 	try {
 		const savedUser = await user.save()
-		res.json(savedUser)
+		const token = jwt.sign({id: savedUser.id}, process.env.SECRET_KEY)
+		res.json({
+			...savedUser.toJSON(),
+			token
+		})
 	} catch (err) {
 		next(err)
 	}

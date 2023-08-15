@@ -39,7 +39,7 @@ function AdminCreate() {
               <input {...key} />
             </div>
             {error && <InputError error={error} /> }
-            <MakeAction title="Crear" />
+            <MakeAction isLoading={loading} title="Crear" />
             </form>
         </section>
     )

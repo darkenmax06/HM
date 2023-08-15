@@ -67,7 +67,7 @@ function getById({id, token}){
     .then(res => res)
 }
 
-export {
+export default {
   create, getById, remove, search, update
 };
 

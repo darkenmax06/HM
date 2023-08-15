@@ -7,7 +7,7 @@ import useUsers from "../../hooks/useUsers"
 import "./createUser.css"
 
 function CreateUser  () {
-  const {create, error, message, clearMessage} = useUsers()
+  const {createUser, error, message, clearMessage, loading} = useUsers()
   const [name, resetName] = useField({placeholder:"ingrese el nombre"})
   const [lastName, resetLastName] = useField({placeholder:"ingrese el apellido"})
   const [userName, resetUserName] = useField({placeholder:"ingrese un userName"})
@@ -25,7 +25,7 @@ function CreateUser  () {
       confirmPassword: confirmPassword.value.trim()
     }
 
-    create({data})
+    createUser({data})
   }
 
   const handleClose = ()=>{
@@ -36,7 +36,7 @@ function CreateUser  () {
     resetPassword()
     resetUserName()
   }
-  
+
   return (
     <AdminLayout>
       <form className="create__user__form"  onSubmit={handleSubmit} >
@@ -49,8 +49,8 @@ function CreateUser  () {
           <input {...confirmPassword} />
         </div>
         {error && <InputError error={error} /> }
-        {message && <SuccessModal message={message} clearMessage={handleClose} />}
-        <MakeAction title="crear usuario"/>
+        {message &&  <SuccessModal message={message} clearMessage={handleClose} />}
+        <MakeAction isLoading={loading} title="crear usuario"/>
         
       </form>
     </AdminLayout>

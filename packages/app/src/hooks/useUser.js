@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../context/userContext";
 import { loginUser } from "../services/loginService";
@@ -12,6 +12,7 @@ import useError from "./useError";
 function useUser() {
   const { user, saveUser, logout } = useContext(userContext)
   const {error, errorHandler} = useError()
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate()
 
 
@@ -19,6 +20,7 @@ function useUser() {
     if (userInfo.userName == "") return errorHandler({error: "debes proveer tu userName para poder loguearte"})
     if (userInfo.password == "") return errorHandler({error: "debes proveer tu password para poder loguearte"})
 
+    setLoading(true)
     loginUser({ userInfo })
       .then(res => {
         saveUser(res)
@@ -26,6 +28,7 @@ function useUser() {
       }).catch(err => {
         errorHandler({error: err})
       })
+      .finally(()=> setLoading(false))
   }
   
   const token = useMemo(() => user?.token, [user])
@@ -36,7 +39,8 @@ function useUser() {
     logout,
     login,
     error,
-    token
+    token,
+    loading
   }
 }
 

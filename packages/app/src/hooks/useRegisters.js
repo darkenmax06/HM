@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { create, getById, remove, search, update } from '../services/registersServices'
+import registersServices from '../services/registersServices'
 import { formateUbication } from '../utils/formatCH'
 import useError from './useError'
 import useUser from './useUser'
@@ -13,11 +13,12 @@ export default function useRegisters() {
   const [register, setRegister] = useState(null)
   const [message,setMessage] = useState(null)
   const navigate = useNavigate()
+  const [loading,setLoading] = useState(false)
   const {error, errorHandler} = useError()
 
   const searchRegisters = ({ query }) => {
     if (!query) return errorHandler("debes proveer el hcn del paciente para poder hacer la busqueda")
-    search({ query, token })
+    registersServices.search({ query, token })
       .then(res => {
         console.log(res)
         setRegisters(res)
@@ -41,7 +42,8 @@ export default function useRegisters() {
 
     data.ubicacion = formateUbication(data.ubicacion)
 
-    create({ data, token })
+    setLoading(true)
+    registersServices.create({ data, token })
       .then(res => {
         setMessage(res.message)
       }).catch(err => {
@@ -51,11 +53,12 @@ export default function useRegisters() {
         }
         errorHandler({error: err.error})
       })
+      .finally(()=> setLoading(false))
 
   }
 
   const removeRegister = ({id})=>{
-    remove({id,token})
+    registersServices.remove({id,token})
     .then(res => {
       alert("recurso eliminado de manera exitosa")
       const filtedRegisters = registers.filter(reg => reg.id !== id)
@@ -81,7 +84,8 @@ export default function useRegisters() {
 
     data.ubicacion = formateUbication(data.ubicacion)
 
-    update({ data, id, token })
+    setLoading(true)
+    registersServices.update({ data, id, token })
       .then(res => {
         setMessage(res.message)
       }).catch(err => {
@@ -91,12 +95,13 @@ export default function useRegisters() {
         }
         errorHandler({error: err.error})
       })
+      .finally(()=> setLoading(false))
       //hacer lo de los messages,en la api y la app
 
   }
 
   const findById = ({id}) =>{
-    getById({id,token})
+    registersServices.getById({id,token})
     .then((res)=> {
       setRegister(res)
     }).catch(err => {
@@ -128,6 +133,7 @@ export default function useRegisters() {
     registers,
     error,
     register,
+    loading,
     message
   }
 }

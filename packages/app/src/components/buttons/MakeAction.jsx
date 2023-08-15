@@ -1,12 +1,14 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Loader2 } from "lucide-react";
 import "./makeAction.css";
 
 
-function MakeAction ({title, handleClick = ()=>{}}){
+function MakeAction ({isLoading,title, handleClick = ()=>{}}){
   return (
     <button className="action" onClick={handleClick} >
       {title} 
-      <ChevronRight/> 
+      {isLoading
+        ? <i id="action__loading" ><Loader2/></i> 
+        : <ChevronRight/>}
     </button>
   )
 }

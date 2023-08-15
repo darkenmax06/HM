@@ -2,7 +2,7 @@ import { errorValidate } from "../utils/errorValidate"
 
 const URI = "http://localhost:3000/api/users"
 
-function getUsers({ token }) {
+function getAll({ token }) {
   const options = {
     method: 'GET',
     headers: {
@@ -16,7 +16,7 @@ function getUsers({ token }) {
     .then(res => res)
 }
 
-function createUser ({data,token}) {
+function create ({data,token}) {
   const options = {
     method: "POST",
     headers: {
@@ -31,9 +31,8 @@ function createUser ({data,token}) {
     .then(res => res)
 }
 
-function disableUser ({data,token}){
+function disable ({data,token}){
 
-  console.log("data", data)
   const options = {
     method: "PUT",
     headers: {
@@ -48,7 +47,7 @@ function disableUser ({data,token}){
     .then(res => res)
 }
 
-function changePassword ({data,token}){
+function updatePassword ({data,token}){
   const options = {
     method:  "PUT",
     headers:{
@@ -64,10 +63,10 @@ function changePassword ({data,token}){
 }
 
 
-export {
-  changePassword,
-  createUser,
-  disableUser,
-  getUsers
+export default{
+  updatePassword,
+  create,
+  disable,
+  getAll
 }
 

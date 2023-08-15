@@ -1,41 +1,11 @@
 const router = require('express').Router()
 const Paciente = require('../models/Paciente')
-const jwt = require('jsonwebtoken')
-const User = require('../models/User')
+const { validateUser } = require('../middlewares/tokenValidate')
 
-/* global process */
 
-router.get('/', async (req, res, next) => {
+router.get('/', validateUser, async (req, res, next) => {
 	const { hcn } = req.query
 	if (!hcn) return next({ name: 'MISSING_DATA' })
-
-	/*--- TOKEN AND DISABLED VALIDATION ---*/
-	const { authorization } = req.headers
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-
-	console.log(decodeToken)
-
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let user = null
-	try {
-		user = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!user || user.disable) return next({ name: 'INVALID_USER' })
-	/*--- END ---*/
 
 	let paciente = null
 	try {
@@ -46,37 +16,9 @@ router.get('/', async (req, res, next) => {
 	res.json(paciente)
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', validateUser, async (req, res, next) => {
 	const { id } = req.params
 	if (!id) return next({ name: 'MISSING_DATA' })
-
-	/*--- TOKEN AND DISABLED VALIDATION ---*/
-	const { authorization } = req.headers
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-
-	console.log(decodeToken)
-
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let user = null
-	try {
-		user = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!user || user.disable) return next({ name: 'INVALID_USER' })
-	/*--- END ---*/
 
 	let paciente = null
 	try {
@@ -87,7 +29,7 @@ router.get('/:id', async (req, res, next) => {
 	res.json(paciente)
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', validateUser,async (req, res, next) => {
 	const { hcn,
 		referencia,
 		fechaDeIngreso,
@@ -95,31 +37,7 @@ router.post('/', async (req, res, next) => {
 		fechaDeRecibo,
 		patologia } = req.body
 
-	/*--- TOKEN AND DISABLED VALIDATION ---*/
-	const { authorization } = req.headers
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let user = null
-	try {
-		user = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!user || user.disable) return next({ name: 'INVALID_USER' })
-	/*--- END ---*/
+	const {user} = req
 
 	if (!hcn ||
         !referencia ||
@@ -149,7 +67,7 @@ router.post('/', async (req, res, next) => {
 	}
 })
 
-router.put('/:id', async(req,res,next)=>{
+router.put('/:id', validateUser ,async(req,res,next)=>{
 	const { hcn,
 		referencia,
 		fechaDeIngreso,
@@ -158,34 +76,6 @@ router.put('/:id', async(req,res,next)=>{
 		patologia } = req.body
 
 	const {id} = req.params
-
-	/*--- TOKEN AND DISABLED VALIDATION ---*/
-	const { authorization } = req.headers
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-
-	console.log(decodeToken)
-
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let user = null
-	try {
-		user = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!user || user.disable) return next({ name: 'INVALID_USER' })
-	/*--- END ---*/
 
 	if (
 		!id ||
@@ -216,35 +106,9 @@ router.put('/:id', async(req,res,next)=>{
 
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', validateUser, async (req, res, next) => {
 	const { id } = req.params
 	if (!id) return next({ name: 'ID_LOST' })
-
-	/*--- TOKEN AND DISABLED VALIDATION ---*/
-	const { authorization } = req.headers
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let user = null
-	try {
-		user = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!user || user.disable) return next({ name: 'INVALID_USER' })
-	/*--- END ---*/
 
 	let paciente = null
 	try {

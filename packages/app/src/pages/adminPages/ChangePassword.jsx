@@ -11,7 +11,8 @@ import "./changePassword.css"
 function ChangePassword  () {
   const {id} = useParams()
   const navigate = useNavigate()
-  const {replacePassword, error, message, clearMessage} = useUsers()
+
+  const {changePassowrd, error, message, clearMessage, loading} = useUsers()
   const [password] = useField({placeholder: "ingrese la nueva password", type: "password"})
   const [confirmPassword] = useField({placeholder: "confirme la password", type: "password"})
 
@@ -24,7 +25,7 @@ function ChangePassword  () {
       id
     }
 
-    replacePassword({data})
+    changePassowrd({data})
   }
 
   const handleClose = ()=>{
@@ -42,7 +43,7 @@ function ChangePassword  () {
           {error && <InputError error={error} />}
         </div>
         {message && <SuccessModal message={message} clearMessage={handleClose} /> }
-        <MakeAction title="Cambiar" />
+        <MakeAction isLoading={loading} title="Cambiar" />
       </form>
     </AdminLayout>
   )

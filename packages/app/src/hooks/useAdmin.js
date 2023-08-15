@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { userContext } from "../context/userContext"
-import { create } from "../services/adminServices"
+import adminServices from "../services/adminServices"
 import useError from "./useError"
 
 function useAdmin() {
@@ -20,7 +20,7 @@ function useAdmin() {
 
         setLoading(true)
 
-        create({ admin })
+        adminServices.create({ admin })
             .then(res => {
                 saveUser(res)
                 console.log(res)

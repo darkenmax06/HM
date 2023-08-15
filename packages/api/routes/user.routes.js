@@ -1,35 +1,10 @@
 const router = require('express').Router()
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const { validateUser, validateAdmin } = require('../middlewares/tokenValidate')
 
 
-router.get('/', async (req, res, next) => {
-	/*--- TOKEN VALIDATION ---*/
-	const authorization = req.headers?.authorization
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let verifyUser = null
-	try {
-		verifyUser = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
-	/*--- END ---*/
-
+router.get('/', validateUser, async (req, res, next) => {
 	try {
 		const users = await User.find()
 		res.json(users)
@@ -38,38 +13,10 @@ router.get('/', async (req, res, next) => {
 	}
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', validateAdmin, async (req, res, next) => {
 	const { name, lastName, password, userName } = req.body
-	if (!name ||
-		!lastName ||
-    !userName ||
-		!password) return next({ name: 'MISSING_DATA' })
 
-	/*--- TOKEN VALIDATION ---*/
-	const authorization = req.headers?.authorization
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let verifyUser = null
-	try {
-		verifyUser = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
-	// if (verifyUser.type === "user") return next({ name: "INVALID ROLE" })
-	/*--- END ---*/
+	if (!name || !lastName || !userName || !password) return next({ name: 'MISSING_DATA' })
 
 	let isCreated = null
 	try {
@@ -99,36 +46,10 @@ router.post('/', async (req, res, next) => {
 	}
 })
 
-router.put('/disable', async (req, res, next) => {
+router.put('/disable', validateAdmin,async (req, res, next) => {
 	console.log(req.body)
 	const { id, disabled } = req.body
 	if (disabled === undefined || !id ) return next({ name: 'ID_LOST' })
-
-	/*--- TOKEN AND ADMIN VALIDATION ---*/
-	const authorization = req.headers?.authorization
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let verifyUser = null
-	try {
-		verifyUser = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
-	if (verifyUser.type === 'user') return next({ name: 'INVALID ROLE' })
-	/*--- END ---*/
 
 	let user = null
 	try {
@@ -150,35 +71,9 @@ router.put('/disable', async (req, res, next) => {
 })
 
 
-router.put('/password', async (req, res, next) => {
+router.put('/password', validateAdmin, async (req, res, next) => {
 	const { id, password } = req.body
 	if (!id || !password) return next({ name: 'ID_LOST' })
-
-	/*--- TOKEN AND ADMIN VALIDATION ---*/
-	const authorization = req.headers?.authorization
-	let token = null
-	if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-		token = authorization.substring(7)
-	}
-
-	let decodeToken = {}
-	const secretKey = process.env.SECRET_KEY
-	try {
-		decodeToken = jwt.verify(token, secretKey)
-	} catch (err) {
-		return next(err)
-	}
-	if (!decodeToken || !decodeToken.id) return next({ name: 'INVALID_TOKEN' })
-
-	let verifyUser = null
-	try {
-		verifyUser = await User.findById(decodeToken.id)
-	} catch (err) {
-		return next(err)
-	}
-	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
-	if (verifyUser.type === 'user') return next({ name: 'INVALID ROLE' })
-	/*--- END ---*/
 
 	let user = null
 	try {

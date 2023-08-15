@@ -1,0 +1,13 @@
+
+
+.disable__button{
+  padding: var(--s);
+  background-color: var(--rojo);
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: var(--s);
+  border-radius: var(--s);
+  color: var(--blanco);
+  justify-content: space-between;
+}

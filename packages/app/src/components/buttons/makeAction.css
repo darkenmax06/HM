@@ -14,3 +14,10 @@
 .action:hover{
   gap: var(--m);
 }
+
+#action__loading svg{
+  animation-name: loading;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}

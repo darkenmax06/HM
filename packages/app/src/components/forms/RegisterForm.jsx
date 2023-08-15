@@ -11,7 +11,7 @@ import "./registerForm.css"
 
 function RegisterForm  (props) {
   const [editMode] = useState(()=> props.hcn != undefined)
-  const { createRegister, error, updateRegister, message,clearMessage } = useRegisters()
+  const { createRegister, error, updateRegister, message,clearMessage ,loading} = useRegisters()
 
   const fUbicacion = props.ubicacion && formatCH(props.ubicacion)
   const fFechaDeIngreso = props.ubicacion && formatInputDate(props.fechaDeIngreso)
@@ -52,7 +52,7 @@ function RegisterForm  (props) {
 
   return (
     <form onSubmit={handleSubmit} className="register__form" >
-    <h2>crear registro</h2>
+    <h2> {props.title || "Crear Registros"  } </h2>
     <div className="inputs">
       <div>
         <label htmlFor="hcn">hcn</label>
@@ -80,7 +80,7 @@ function RegisterForm  (props) {
       </div>
     </div>
     {error && <InputError error={error} />}
-    <MakeAction title="crear registro" />
+    <MakeAction isLoading={loading} title="crear registro" />
     {message && <SuccessModal message={message} clearMessage={handleClear} />}
   </form>
   )

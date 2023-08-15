@@ -1,4 +1,4 @@
-import { CheckCircle2 } from "lucide-react"
+import { Check } from "lucide-react"
 import PropTypes from "prop-types"
 import { createPortal } from "react-dom"
 import "./successModal.css"
@@ -9,9 +9,11 @@ function SuccessModal  ({message,clearMessage}) {
     <div className="modal__container" > 
       <div className="modal" >
         <div className="icon">
-           <CheckCircle2 strokeWidth={1} />
+           <Check size={30} />
         </div>
         <div className="text__box">
+          <h3>Accion completada correctamente</h3>
+          <span className="line"></span>
           <p>{message}</p>
           <button onClick={clearMessage} >continuar</button>
         </div>

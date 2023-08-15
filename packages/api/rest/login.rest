@@ -9,6 +9,6 @@ Content-Type: application/json
 # }
 
 {
-  "userName": "Rgonzalez",
-  "password": "ramsesgonzalez"
+  "userName": "Dark",
+  "password": "dark"
 }
