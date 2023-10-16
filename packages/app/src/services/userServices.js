@@ -1,6 +1,5 @@
 import { errorValidate } from "../utils/errorValidate"
-
-const URI = "http://localhost:3000/api/users"
+const URI = "/api/users"
 
 function getAll({ token }) {
   const options = {

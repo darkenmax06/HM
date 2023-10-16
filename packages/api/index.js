@@ -14,6 +14,7 @@ const deleteAll = require('./routes/deleteAll.route')
 
 /*-- config ---*/
 const app = express()
+app.locals.baseName = "10.10.3.182"
 
 app.use(cors())
 app.use(express.json())
@@ -35,7 +36,7 @@ app.use('*', (_,res)=>{
 /*--- server ---*/
 
 const port = process.env.PORT || 3000
-const server = app.listen(port, () => console.log('sserver on port ', port))
+const server = app.listen(port, () => console.log('server on port ', port))
 
 module.exports = {
 	app,

@@ -16,7 +16,6 @@ function Login  () {
 
   const handleSubmit = event =>{
     event.preventDefault()
-    console.log("logueado")  
     const userInfo = {
       userName: userName.value,
       password: password.value

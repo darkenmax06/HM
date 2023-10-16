@@ -26,7 +26,9 @@ const validateUser = async (req,res,next)=>{
 	} catch (err) {
 		return next(err)
 	}
-	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
+	console.log("verify User")
+	console.log(verifyUser)
+	if (!verifyUser || verifyUser.disable) return next({ name: 'INVALID_USER' })
 
 	req.user = verifyUser
 	next()
@@ -56,7 +58,7 @@ const validateAdmin = async(req,res,next)=>{
 	} catch (err) {
 		return next(err)
 	}
-	if (!verifyUser || verifyUser.disabled) return next({ name: 'INVALID_USER' })
+	if (!verifyUser || verifyUser.disable) return next({ name: 'INVALID_USER' })
 	if (verifyUser.type === 'user') return next({ name: 'INVALID ROLE' })
 
 	req.admin = verifyUser

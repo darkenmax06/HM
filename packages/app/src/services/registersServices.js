@@ -1,5 +1,5 @@
 import { errorValidate } from "../utils/errorValidate";
-const URI = "http://localhost:3000/api/pacientes"
+const URI = "/api/pacientes"
 
 function search({ query, token }) {
   const options = {

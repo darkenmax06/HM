@@ -15,7 +15,6 @@ function Alert ({
   useEffect(()=>{
     const timeOut = setTimeout(
       ()=> {
-        console.log("a")
         handleClose()
       },
       time

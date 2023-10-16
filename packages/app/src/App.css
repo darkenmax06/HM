@@ -5,9 +5,9 @@
 }
 
 :root{
-  --colorClaro: #34A9E4,
-  --colorOscuro: #005476,
-  --blanco: #fff,
-  --gris: #fff,
-  --negro: #000
+  --colorClaro: #34A9E4;
+  --colorOscuro: #005476;
+  --blanco: #fff;
+  --gris: #fff;
+  --negro: #000;
 }

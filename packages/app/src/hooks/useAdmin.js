@@ -11,7 +11,6 @@ function useAdmin() {
     const {error,errorHandler} = useError()
 
     const createAdmin = (admin) => {
-      console.log(admin)
         if (admin.name.length < 2) return errorHandler({error: "el nombre debe ser mayor a 2 caracteres"})
         else if (admin.lastName.length < 2) return errorHandler({error: "el apellido debe ser mayor a 2 caracteres"})
         else if (admin.userName.length < 2) return errorHandler({error: "el userName debe ser mayor a 2 caracteres"})
@@ -23,11 +22,9 @@ function useAdmin() {
         adminServices.create({ admin })
             .then(res => {
                 saveUser(res)
-                console.log(res)
                 navigate("/managment")
             })
             .catch(err => {
-                console.log(err)
                 errorHandler({error: err.error})
             })
             .finally(() => setLoading(false))

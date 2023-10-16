@@ -15,7 +15,6 @@ function UserManagment() {
 
   const handleDisable = ({id,disabled})=>{
     const data = {id,disabled}
-    console.log(data)
     disableUser({data})
   }
 

@@ -21,7 +21,7 @@ function CreateUser  () {
       name:name.value.trim(),
       lastName: lastName.value.trim(),
       password: password.value.trim(),
-      userName: userName.value.trim(),
+      userName: userName.value.toLowerCase().trim(),
       confirmPassword: confirmPassword.value.trim()
     }
 

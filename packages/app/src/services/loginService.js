@@ -1,4 +1,4 @@
-const URI = "http://localhost:3000/api/login"
+const URI = "/api/login"
 
 function loginUser({ userInfo }) {
   const options = {

@@ -20,10 +20,8 @@ export default function useRegisters() {
     if (!query) return errorHandler("debes proveer el hcn del paciente para poder hacer la busqueda")
     registersServices.search({ query, token })
       .then(res => {
-        console.log(res)
         setRegisters(res)
       }).catch(err => {
-        console.log(err)
         if (err.loginAgain) {
           logout()
           navigate('/login')
@@ -87,7 +85,7 @@ export default function useRegisters() {
     setLoading(true)
     registersServices.update({ data, id, token })
       .then(res => {
-        setMessage(res.message)
+        navigate("/search")
       }).catch(err => {
         if (err.loginAgain) {
           logout()

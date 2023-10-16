@@ -60,6 +60,7 @@ export default function useUsers() {
 
   const createUser = ({data}) =>{
     if (data.name == "") return errorHandler({error: "debes proveer un nombre para el usuario"})
+    else if (data.userName.includes(" ")) return errorHandler({error: "Los nombres de usuario no deben tener espacios"})
     else if (data.lastName == "") return errorHandler({error: "debes proveer un apellido para el usuario"})
     else if (data.password == "") return errorHandler({error: "debes proveer una password para el usuario"})
     else if (data.userName == "") return errorHandler({error: "debes proveer una password para el usuario"})

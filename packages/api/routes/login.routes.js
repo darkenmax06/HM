@@ -5,12 +5,14 @@ const router = require('express').Router()
 
 router.post('/', async (req, res, next) => {
 	const { userName, password } = req.body
+
 	if (!userName || !password) return next({ name: 'MISSING_DATA' })
 
 	let user = null
 	try {
-		user = await User.findOne({ userName })
+		user = await User.findOne({ userName: userName.toLowerCase() })
 	} catch (err) { return next(err) }
+	
 	if (!user) return next({name: 'BAD_LOGIN'})
 	else if (user.disable) return next({name: 'INVALID_USER'})
 

@@ -36,7 +36,9 @@ function RegisterForm  (props) {
       patologia: patologia.value
     }
 
-    if (editMode) updateRegister({data, id: props.id})
+    if (editMode) {
+      updateRegister({data, id: props.id})
+    }
     else createRegister({ data })
   }
 
@@ -80,7 +82,7 @@ function RegisterForm  (props) {
       </div>
     </div>
     {error && <InputError error={error} />}
-    <MakeAction isLoading={loading} title="crear registro" />
+    <MakeAction isLoading={loading} title={editMode ? "Actualizar Registro": "Crear Registro" } />
     {message && <SuccessModal message={message} clearMessage={handleClear} />}
   </form>
   )
