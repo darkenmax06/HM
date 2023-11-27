@@ -6,7 +6,7 @@ function useError () {
   const [error,setError] = useState(null)
   const timeOut = useRef()
 
-  const errorHandler = ({error, time = 5000}) => {
+  const errorHandler = ({error, time = 15000}) => {
     if (timeOut.current != null){
       clearInterval(timeOut.current)
     }

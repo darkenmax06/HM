@@ -8,6 +8,7 @@ import { formatCH } from "../../utils/formatCH"
 import { formatInputDate } from "../../utils/formatDate"
 import SuccessModal from "../modals/SuccessModal"
 import "./registerForm.css"
+import { NavLink } from "react-router-dom"
 
 function RegisterForm  (props) {
   const [editMode] = useState(()=> props.hcn != undefined)
@@ -52,12 +53,14 @@ function RegisterForm  (props) {
       resetUbucacion()
   }
 
+
+
   return (
     <form onSubmit={handleSubmit} className="register__form" >
     <h2> {props.title || "Crear Registros"  } </h2>
     <div className="inputs">
       <div>
-        <label htmlFor="hcn">hcn</label>
+        <label htmlFor="hcn">hcn * </label>
         <input id="hcn" {...hcn} />
       </div>
       <div>
@@ -65,11 +68,11 @@ function RegisterForm  (props) {
       <input id="referencia" {...referencia} />
       </div>
       <div>
-        <label htmlFor="fecha-de-ingreso">fecha de ingreso</label>
+        <label htmlFor="fecha-de-ingreso">fecha de ingreso *</label>
       <input id="fecha-de-ingreso" {...fechaDeIngreso} />
       </div>
       <div>
-        <label htmlFor="ubicacion">ubicacion</label>
+        <label htmlFor="ubicacion">ubicacion * </label>
       <input id="ubicacion" {...ubicacion} />
       </div>
       <div>

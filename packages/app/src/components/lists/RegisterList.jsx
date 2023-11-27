@@ -25,6 +25,9 @@ export  function RegisterItem({
   handleDelete
 }){
 
+  console.log(fechaDeRecibo)
+  console.log(fechaDeProceso)
+
   const fFechaDeIngreso = formatDate(fechaDeIngreso)
   const fFechaDeRecibo = formatDate(fechaDeRecibo)
   const fFechaDeProceso = formatDate(fechaDeProceso)

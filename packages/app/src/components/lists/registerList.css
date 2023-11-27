@@ -22,7 +22,7 @@
 
 .register__item{
   list-style: none;
-  background-color: var(--gris);
+  background-color: var(--blanco);
   padding: var(--s);
   border-radius: var(--s);
 }

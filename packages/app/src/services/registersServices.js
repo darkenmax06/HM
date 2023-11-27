@@ -67,7 +67,22 @@ function getById({id, token}){
     .then(res => res)
 }
 
+function createSome ({data,token}){
+  const options ={
+    headers: {
+      "content-type":"application/json",
+      "authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(data),
+    method: "POST"
+  }
+
+  return fetch(`${URI}/some`, options)
+  .then(errorValidate)
+  .then(res => res)
+}
+
 export default {
-  create, getById, remove, search, update
+  create, getById, remove, search, update, createSome
 };
 

@@ -26,8 +26,6 @@ const validateUser = async (req,res,next)=>{
 	} catch (err) {
 		return next(err)
 	}
-	console.log("verify User")
-	console.log(verifyUser)
 	if (!verifyUser || verifyUser.disable) return next({ name: 'INVALID_USER' })
 
 	req.user = verifyUser

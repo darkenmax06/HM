@@ -9,6 +9,7 @@ import CreateUser from './pages/adminPages/CreateUser'
 import UserManagment from './pages/adminPages/UserManagment'
 import CreateRegister from './pages/userPages/CreateRegister'
 import Home from './pages/userPages/Home'
+import CreateWithExcel from './pages/userPages/CreateWithExcel'
 
 function App() {
 
@@ -28,6 +29,12 @@ function App() {
       <Route path='/create/registers' element={
         <Redirect type="user" >
           <CreateRegister />
+        </Redirect>
+      } />
+
+      <Route path='/create/registers/upfile' element={
+        <Redirect type="user" >
+          <CreateWithExcel />
         </Redirect>
       } />
 

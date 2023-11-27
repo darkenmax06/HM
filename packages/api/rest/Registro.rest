@@ -26,6 +26,34 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Yjk0Mzc2M
     "patologia": "el paciente sufrio una lesion de la rodilla"
 }
 
+### Crear varios registro
+POST http://localhost:3000/api/pacientes/some
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTIyMzM1NzZlYjJlZWIwYmFkYTBkNiIsImlhdCI6MTY5OTkwMTQ5MH0.GAxrdd3IpBhb5pr6FbyWnLgRg1ORsO_X_cXf7SDdzAs
+
+[
+    {
+    //"hcn": "juan",
+    "hcn": "4",
+    "fechaDeIngreso": "11/6/2023",
+    "ubicacion": "ch-0000-0000",
+    "patologia": "el paciente sufrio una lesion de la rodilla"
+},
+{
+    "hcn": "5",
+    //"hcn": "jun",
+    "fechaDeIngreso": "11/6/2023",
+    "ubicacion": "ch-0000-0000",
+    "patologia": "el paciente sufrio una lesion de la rodilla"
+},{
+    "hcn": "6",
+    //"hcn": "cong",
+    "fechaDeIngreso": "11/6/2023",
+    "ubicacion": "ch-0000-0000",
+    "patologia": "el paciente sufrio una lesion de la rodilla"
+}
+]
+
 
 
 ### Actualizar Registro

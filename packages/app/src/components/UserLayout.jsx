@@ -3,7 +3,7 @@ import "./userLayout.css";
 
 function UserLayout({ children }) {
     return (
-        <section>
+        <section className="section" >
             <UserMenu />
             <div className="max" >
               <div className="container">

@@ -1,7 +1,12 @@
+.section{
+  background-color: #d4d4ce;
+}
+
 .max{
   display: flex;
   justify-content: center;
   padding: var(--xl) var(--l);
+  min-height: calc(100vh - 72px);
 }
 
 .container{

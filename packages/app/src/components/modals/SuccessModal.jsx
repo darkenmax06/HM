@@ -8,12 +8,11 @@ function SuccessModal  ({message,clearMessage}) {
   const element = (
     <div className="modal__container" > 
       <div className="modal" >
-        <div className="icon">
-           <Check size={30} />
+        <div className="modal__icon">
+           <Check size={60} strokeWidth={3} />
         </div>
         <div className="text__box">
-          <h3>Accion completada correctamente</h3>
-          <span className="line"></span>
+          <h3>Perfecto!</h3>
           <p>{message}</p>
           <button onClick={clearMessage} >continuar</button>
         </div>
