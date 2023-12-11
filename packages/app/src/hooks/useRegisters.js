@@ -39,7 +39,6 @@ export default function useRegisters() {
 
     
     data.ubicacion = formateUbication(data.ubicacion)
-    data.fechaDeIngreso = new Date(data.fechaDeIngreso).toLocaleString().split(",")[0]
 
     setLoading(true)
     registersServices.create({ data, token })
@@ -122,7 +121,9 @@ export default function useRegisters() {
   }
 
   const createSomeRegister = (data) => {
-    if (data == undefined)return errorHandler({error: "no se pudo encotrar los datos, esto puede deberse a que el formato no sea el correcto"})
+    console.log("data")
+    console.log(data)
+    if (data == undefined || data?.length < 1)return errorHandler({error: "no se pudo encotrar los datos, esto puede deberse a que el formato no sea el correcto"})
 
     for (let i =0; i< data.length; i++){
       const currentData = data[i]

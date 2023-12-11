@@ -34,8 +34,9 @@ function CreateWithExcel (){
             }
 
             row.some((value,x) => {
+                console.log(value)
                 if(value == null) return false 
-                else if (value.toLowerCase().includes("hcn")){
+                else if (typeof value === "string" && value.toLowerCase().includes("hcn")){
                     position.x=x
                     position.y=y
                 }
@@ -44,6 +45,7 @@ function CreateWithExcel (){
         })
 
         const parsedResults = results.filter(res => res !== undefined)
+        console.log(parsedResults)
         createSomeRegister(parsedResults)
         e.target.value = ""
     }
