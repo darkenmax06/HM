@@ -15,7 +15,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YmU4M2U2Z
 ### Crear registro
 POST http://localhost:3000/api/pacientes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Yjk0Mzc2MGU1ZjE1NmQ5ZjVhMjc1MiIsImlhdCI6MTY4OTg2MzE3M30.hln_lHQKjyD246NyR77WWe6XQiCiKNtYATRH8dRy_To
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjRiNjg2NGNiYThmMmM0ZDQ0OTAxOSIsImlhdCI6MTcwMjkwOTQ1MH0.lCh50VQGvQSQ37SlGAGqLEHYPixWcMDxm9tmvnDegAk
 
 {
     "hcn": "juan",
@@ -29,28 +29,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Yjk0Mzc2M
 ### Crear varios registro
 POST http://localhost:3000/api/pacientes/some
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTIyMzM1NzZlYjJlZWIwYmFkYTBkNiIsImlhdCI6MTY5OTkwMTQ5MH0.GAxrdd3IpBhb5pr6FbyWnLgRg1ORsO_X_cXf7SDdzAs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjRiNjg2NGNiYThmMmM0ZDQ0OTAxOSIsImlhdCI6MTcwMjkwOTQ1MH0.lCh50VQGvQSQ37SlGAGqLEHYPixWcMDxm9tmvnDegAk
 
 [
     {
     //"hcn": "juan",
     "hcn": "4",
     "fechaDeIngreso": "11/6/2023",
-    "ubicacion": "ch-0000-0000",
-    "patologia": "el paciente sufrio una lesion de la rodilla"
+    "ubicacion": "ch-0000-0000"
 },
 {
     "hcn": "5",
     //"hcn": "jun",
     "fechaDeIngreso": "11/6/2023",
-    "ubicacion": "ch-0000-0000",
-    "patologia": "el paciente sufrio una lesion de la rodilla"
+    "ubicacion": "ch-0000-0000"
 },{
     "hcn": "6",
     //"hcn": "cong",
-    "fechaDeIngreso": "11/6/2023",
-    "ubicacion": "ch-0000-0000",
-    "patologia": "el paciente sufrio una lesion de la rodilla"
+    "fechaDeIngreso": "11/60/2023",
+    "ubicacion": "ch-0000-0000"
 }
 ]
 

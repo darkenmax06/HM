@@ -34,17 +34,19 @@ function CreateWithExcel (){
             }
 
             row.some((value,x) => {
-                console.log(value)
-                if(value == null) return false 
-                else if (typeof value === "string" && value.toLowerCase().includes("hcn")){
+                console.log("valor de la pasada " + y + " " + value)
+                if (typeof value === "string" && value.toLowerCase().includes("hcn")){
                     position.x=x
                     position.y=y
+                    return true
                 }
-                return true
+                
+                return false 
             })
         })
 
         const parsedResults = results.filter(res => res !== undefined)
+        console.log("resultados")
         console.log(parsedResults)
         createSomeRegister(parsedResults)
         e.target.value = ""

@@ -42,10 +42,15 @@ router.post('/', validateUser,async (req, res, next) => {
 	const {user} = req
 
 	if (!hcn || !fechaDeIngreso || !ubicacion ) return next({ name: 'MISSING_DATA' })
+	const isValidFDI = new Date(fechaDeIngreso) == "Invalid Date"
+	const isValidFDR = fechaDeRecibo && (new Date(fechaDeRecibo) == "Invalid Date")
+
+	if (isValidFDI) return next({name: "INVALID_DATE", place: "fecha de ingreso"})
+	else if (isValidFDR) return next({name: "INVALID_DATE", place: "fecha de recibo"})
+
 
 	const fechaDeProceso = new Date()
 	const fDR = fechaDeRecibo || new Date()
-	console.log(fDR)
 
 	const paciente = new Paciente({
 		hcn,
@@ -73,10 +78,16 @@ router.post('/some', validateUser,async (req, res, next) => {
 
 	// Validando la data
 	for (let i = 0; i < data.length; i++){
-		const {hcn,fechaDeIngreso, ubicacion} = data[i]
+		const {hcn,fechaDeIngreso, ubicacion,fechaDeRecibo} = data[i]
 		if (!hcn || !fechaDeIngreso || !ubicacion ) return next({ name: 'MISSING_DATA' })
+		const isValidFDI = new Date(fechaDeIngreso) == "Invalid Date"
+		const isValidFDR = fechaDeRecibo && (new Date(fechaDeRecibo) == "Invalid Date")
+	
+		if (isValidFDI) return next({name: "INVALID_DATE", place: "fecha de ingreso", position: hcn })
+		else if (isValidFDR) return next({name: "INVALID_DATE", place: "fecha de recibo",  position: hcn })
 	}
 
+	// comparandola con la del compa
 	try{
 		await compare(data)
 	}catch(err){
@@ -95,18 +106,22 @@ router.post('/some', validateUser,async (req, res, next) => {
 			patologia,
 		} = data[i]
 
+		const fDI = new Date(fechaDeIngreso)
+		console.log("fecha de ingreso")
+		console.log(fDI)
 		const fDR = fechaDeRecibo || new Date()
 
 		const paciente = new Paciente({
 			hcn,
 			referencia,
-			fechaDeIngreso,
+			fechaDeIngreso: fDI,
 			ubicacion,
 			fechaDeRecibo: fDR,
 			fechaDeProceso,
 			patologia,
 			usuario: user._id
 		})
+		console.log(paciente)
 					
 		try {
 			await paciente.save()
