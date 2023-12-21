@@ -4,10 +4,11 @@ import InputError from "../../components/InputError"
 import SuccesModal from "../../components/modals/SuccessModal"
 import "./createWithExcel.css"
 import UserLayout from "../../components/UserLayout"
+import Loader from "../../components/alerts/Loader"
 
 function CreateWithExcel (){
     const fileUrl = "/api/public/plantilla-archivos.xlsx"
-    const {createSomeRegister,error,message,clearMessage} = useRegisters()
+    const {createSomeRegister,error,message,clearMessage, loading} = useRegisters()
 
     const dragOverEvent = e => {
         e.preventDefault()
@@ -57,10 +58,16 @@ function CreateWithExcel (){
           <section className="upload">
             <div className="upload__box">
                 <h2 className="upload__title" >Subir archivo de excel</h2>
-                <div className="upload__drop" onDrop={handleDrop} onDragOver={dragOverEvent} >
-                    Arrastre el archivo que desea subir aqui
-                </div>    
-                {error && <InputError error={error} />}  
+                {
+                  loading 
+                  ? <Loader/>
+                  : (
+                      <div className="upload__drop" onDrop={handleDrop} onDragOver={dragOverEvent} >
+                        Arrastre el archivo que desea subir aqui
+                      </div>   
+                  )
+                } 
+                {error && <InputError error={error} />}                  
                 {message && <SuccesModal message={message} clearMessage={clearMessage} />}
                 <p className="upload__plantilla" >En canso de que no tengas la plantilla puedes descargarla <a download href={fileUrl}>aqui</a> </p>
             </div>
